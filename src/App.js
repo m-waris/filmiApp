@@ -3,8 +3,6 @@ import './App.css';
 import MovieCard from './MovieCard';
 import seacrhIcon from './search.svg';
 import DropdownMenu from './DropdownMenu';
-//api key: 7323815a
-const API_URL = "http://www.omdbapi.com/?i=tt3896198&apikey=7323815a"
 function App() {
   const [movies, setMovies] = useState([]);
   const [search, setSearch] = useState('');
@@ -22,7 +20,8 @@ function App() {
   
 
   const searchMovies = async (title) => {
-    const url = `${API_URL}&s=${title}`
+    const url = `${process.env.REACT_APP_API_URL}&s=${title}`
+
     const response = await fetch(url)
     const data = await response.json()
     setMovies(data.Search)
@@ -41,6 +40,7 @@ function App() {
          onChange={(e)=>setSearch(e.target.value)}
         />
         <img src={seacrhIcon}
+        alt='search'
         onClick={()=>searchMovies(search)}
         />
       </div>
